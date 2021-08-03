@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <app>
         <section class="hero w-full h-screen">
             <div class="modal w-full h-full bg-green-100 py-10 flex flex-col items-center justify-center">
                 <div class="w-full text-center px-10">
@@ -11,9 +11,9 @@
                         </button>
                         
                     </div>
-                    <router-link :to="{ name : 'SelectSchool' }" class="text-white inline-block mt-5 hover:text-green-500 border-b border-solid border-white hover:border-green-500">
+                    <a href="/review/select-school" class="text-white inline-block mt-5 hover:text-green-500 border-b border-solid border-white hover:border-green-500">
                         <em>Write a Review</em>
-                    </router-link>
+                    </a>
                 </div>
             </div>
         </section>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="w-full text-center pb-10">
-                    <router-link :to="{ name : 'SelectSchool' }" class="bg-green-500 py-2 px-10 inline-block text-center hover:bg-green-300">Write a Review</router-link>
+                    <a href="/review/select-school" class="bg-green-500 py-2 px-10 inline-block text-center hover:bg-green-300">Write a Review</a>
                 </div>
             </div>
         </section>
@@ -66,12 +66,15 @@
                 </div>
             </div>
         </section>
-    </div>
+    </app>
 </template>
 
 <script>
+import App from '../layouts/App'
 export default {
-    
+    components: {
+        App
+    }
 }
 </script>
 

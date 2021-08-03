@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Reviews\ReviewController;
+use App\Http\Controllers\Reviews\SchoolController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/{any}', function () {
-    return view('app');
-})->where('any', '.*');
+Route::get('/', function () {
+    return view('static.home');
+});
+Route::prefix('review')->group(function(){
+    Route::get('select-school', [SchoolController::class, 'index']);
+    Route::get('create', [ReviewController::class, 'index']);
+});

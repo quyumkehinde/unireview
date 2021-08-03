@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <app>
         <div class="w-9/10 max-w-3xl bg-white mx-auto mt-3 shadow sm:p-6 p-3 font-light">
             <h2 class="sm:text-2xl text-xl font-medium">Rate <span class="text-green-500">"Covenant University"</span></h2>
             <p class="mt-3">Your review will be kept anonymous, and will help other aspirants make better decision.</p>
@@ -37,15 +37,17 @@
                 <button class="p-3 bg-green-500 text-white hover:bg-green-300">Submit Review</button>
             </div>
         </div>
-    </div>
+    </app>
 </template>
 
 
 <script>
-import {StarRating} from 'vue-rate-it';
+import { StarRating } from 'vue-rate-it';
+import App from '../layouts/App'
 export default {
     components: {
-        StarRating
+        StarRating,
+        App
     },
     data() {
         return {

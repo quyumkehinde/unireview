@@ -9,14 +9,9 @@
         <script src="https://kit.fontawesome.com/0d8e5e6c23.js"></script>
     </head>
     <body class="font-roboto bg-gray-100">
-        <Star />
         <div id="app">
-            <app>
-                
-            </app> 
+            @yield('content')
         </div>
+        <script src="{{ mix('js/app.js') }}"></script>
     </body>
-    <script src="https://unpkg.com/vue-star-rating/dist/VueStarRating.umd.min.js"></script>
-    <script src="{{ asset('js/vue-app.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
 </html>
