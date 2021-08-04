@@ -89,10 +89,10 @@ export default {
                     state: this.state,
                     '_token': this.token
                 })
-            }).then((res) => {
-                return res.json()
             }).then((response) => {
-                if(response.statusCode == 1){
+                return response.json()
+            }).then((result) => {
+                if(result.statusCode == 1){
                     this.isSuccess = true
                 }else{
                     this.isError = true

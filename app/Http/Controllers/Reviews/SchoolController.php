@@ -13,37 +13,28 @@ class SchoolController extends Controller
     {
         return School::where('name', '=', $schoolName)->exists();
     }
-    protected function getResponse(int $code, string $message): JsonResponse
+
+    protected function getResponse(int $statusCode, string $message): JsonResponse
     {
         return response()->json([
-            'statusCode' => $code,
+            'statusCode' => $statusCode,
             'message' => $message
         ]);
     }
-    protected function createSchool(string $name, string $state, int $status = 0): School
-    {
-        return School::create([
-            'name' => $name,
-            'state' => $state,
-            'country' => 'Nigeria',
-            'status' => $status,
-            'establishment_year' => 1980
-        ]);
-    }
-
-
     public function create(Request $request): JsonResponse
     {
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'state' => 'required|string',
+        ]);
 
         if($this->schoolExist($request->name)){
             return $this->getResponse(0, 'School already exist!');
         }
+        $school = array_merge(['country' => 'Nigeria', 'status' => 0, 'establishment_year' => 1980], $validatedData);
 
-        $school = $this->createSchool($request->name, $request->state);
-        return $school ? 
-            $this->getResponse(1, 'School has been submitted for approval!') :
-            $this->getResponse(0, 'An error occure! Please, try again.')
-        ;
+        School::create($school);
+        return $this->getResponse(1, 'School has been submitted for approval!');
     }
 
     public function index(){

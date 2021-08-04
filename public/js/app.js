@@ -1937,10 +1937,10 @@ __webpack_require__.r(__webpack_exports__);
           state: this.state,
           '_token': this.token
         })
-      }).then(function (res) {
-        return res.json();
       }).then(function (response) {
-        if (response.statusCode == 1) {
+        return response.json();
+      }).then(function (result) {
+        if (result.statusCode == 1) {
           _this.isSuccess = true;
         } else {
           _this.isError = true;
@@ -2122,6 +2122,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_rate_it__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-rate-it */ "./node_modules/vue-rate-it/dist/vue-rate-it.min.js");
 /* harmony import */ var vue_rate_it__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_rate_it__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _layouts_App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../layouts/App */ "./resources/js/components/layouts/App.vue");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+//
+//
+//
 //
 //
 //
@@ -2185,12 +2190,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      graduation_year: "",
+      graduation_year: 0,
       degree: "",
       course: "",
       description: "",
       rating: 3,
-      years: []
+      years: [],
+      statusCode: 0
     };
   },
   props: ['schoolinfo'],
@@ -2203,11 +2209,43 @@ __webpack_require__.r(__webpack_exports__);
       this.years.push(year);
       year++;
     }
+
+    this.token = $('meta[name="csrf-token"]').attr('content');
   },
   methods: {
     submitForm: function submitForm(e) {
+      var _this = this;
+
+      console.log(this.rating, _typeof(this.rating));
       e.preventDefault();
       console.log('working');
+      fetch("/review/school/".concat(this.school.id, "/create"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': this.token
+        },
+        body: JSON.stringify({
+          'description': this.description,
+          'degree': this.degree,
+          'course': this.course,
+          'graduation_year': this.graduation_year,
+          'rating': this.rating,
+          '_token': this.token
+        })
+      }).then(function (response) {
+        console.log(response);
+        return response.json();
+      }).then(function (result) {
+        console.log(result);
+        _this.statusCode = result.statusCode;
+        _this.message = result.message;
+        _this.graduation_year = 0;
+        _this.degree = "";
+        _this.course = "";
+        _this.description = "";
+        _this.rating = 0;
+      });
     }
   }
 });
@@ -39406,7 +39444,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "pl-2 pr-40 py-2 text-gray-600",
-                  attrs: { id: "graduation_year", required: "" },
+                  attrs: { id: "graduation_year", r: "" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -39424,7 +39462,7 @@ var render = function() {
                   }
                 },
                 [
-                  _c("option", { attrs: { value: "", disabled: "" } }, [
+                  _c("option", { attrs: { value: "0", disabled: "" } }, [
                     _vm._v("Select")
                   ]),
                   _vm._v(" "),
@@ -39463,7 +39501,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "pl-2 pr-40 py-2 text-gray-600",
-                  attrs: { id: "degree", required: "" },
+                  attrs: { id: "degree", r: "" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -39518,7 +39556,7 @@ var render = function() {
                 type: "text",
                 id: "course",
                 placeholder: "e.g Computer Science",
-                required: ""
+                r: ""
               },
               domProps: { value: _vm.course },
               on: {
@@ -39553,7 +39591,7 @@ var render = function() {
                 id: "description",
                 placeholder:
                   "What did you enjoy about the school and did not? In what way do you think the school can improve?",
-                required: ""
+                r: ""
               },
               domProps: { value: _vm.description },
               on: {
@@ -39591,6 +39629,14 @@ var render = function() {
             1
           )
         ]),
+        _vm._v(" "),
+        _vm.statusCode
+          ? _c("div", { staticClass: "mt-5" }, [
+              _c("p", { staticClass: "text-green-500" }, [
+                _vm._v(_vm._s(_vm.message))
+              ])
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "mt-10" }, [
           _c(

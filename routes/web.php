@@ -21,4 +21,5 @@ Route::prefix('review/school')->group(function(){
     Route::get('/', [SchoolController::class, 'index'])->name('review.school');
     Route::post('/', [SchoolController::class, 'create'])->middleware('auth.school');
     Route::get('{id}/create', [ReviewController::class, 'index'])->where('id', '[0-9]+');
+    Route::post('{id}/create', [ReviewController::class, 'create'])->where('id', '[0-9]+');
 });

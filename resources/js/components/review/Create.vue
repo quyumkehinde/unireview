@@ -6,8 +6,8 @@
             <div class="mt-5">
                 <label class="text-gray-500 text-sm block">Year of graduation *</label>
                 <div class="inline-block border border-gray-300 mt-2">
-                    <select v-model="graduation_year" id="graduation_year" class="pl-2 pr-40 py-2 text-gray-600" required>
-                        <option value="" disabled>Select</option>
+                    <select v-model="graduation_year" id="graduation_year" class="pl-2 pr-40 py-2 text-gray-600" r  >
+                        <option value=0 disabled>Select</option>
                         <option v-for="year in years" :value="year" :key="year">{{ year }}</option>
                     </select>
                 </div>
@@ -16,7 +16,7 @@
             <div class="mt-5">
                 <label class="text-gray-500 text-sm block">What degree did you study? *</label>
                 <div class="inline-block border border-gray-300 mt-2">
-                    <select v-model="degree" id="degree" class="pl-2 pr-40 py-2 text-gray-600" required>
+                    <select v-model="degree" id="degree" class="pl-2 pr-40 py-2 text-gray-600" r  >
                         <option value="" disabled>Select</option>
                         <option value="undergraduate">Undergraduate</option>
                         <option value="postgraduate">Postgraduate</option>
@@ -27,14 +27,14 @@
             <div class="mt-5">
                 <label class="text-gray-500 text-sm block">What course did you study? *</label>
                 <div class="border border-gray-300 mt-2">
-                    <input type="text" v-model="course" id="course" class="px-2 py-2 w-full" placeholder="e.g Computer Science" required>
+                    <input type="text" v-model="course" id="course" class="px-2 py-2 w-full" placeholder="e.g Computer Science" r  >
                 </div>
                 
             </div>
             <div class="mt-5">
                 <label class="text-gray-500 text-sm block">Share your experience *</label>
                 <div class="border border-gray-300 mt-2">
-                    <textarea v-model="description" id="description" class="px-2 pt-2 w-full h-52 resize-none" placeholder="What did you enjoy about the school and did not? In what way do you think the school can improve?" required></textarea>
+                    <textarea v-model="description" id="description" class="px-2 pt-2 w-full h-52 resize-none" placeholder="What did you enjoy about the school and did not? In what way do you think the school can improve?" r  ></textarea>
                 </div>
                 
             </div>
@@ -43,6 +43,9 @@
                 <div class="mt-2">
                     <star-rating v-model="rating" :item-size="25" :increment="0.5"></star-rating>
                 </div>
+            </div>
+            <div class="mt-5" v-if="statusCode">
+                <p class="text-green-500">{{ message }}</p>
             </div>
             <div class="mt-10">
                 <button class="p-3 bg-green-500 text-white hover:bg-green-300" type="submit">Submit Review</button>
@@ -62,12 +65,13 @@ export default {
     },
     data() {
         return {
-            graduation_year: "",
+            graduation_year: 0,
             degree: "",
             course: "",
             description: "",
             rating: 3,
             years: [],
+            statusCode: 0,
         }
     },
     props: [ 'schoolinfo' ],
@@ -80,11 +84,40 @@ export default {
             this.years.push(year)
             year++
         }
+        this.token = $('meta[name="csrf-token"]').attr('content')
     },
     methods: {
         submitForm(e){
+            console.log(this.rating, typeof(this.rating))
             e.preventDefault()
             console.log('working')
+            fetch(`/review/school/${this.school.id}/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': this.token
+                },
+                body: JSON.stringify({
+                    'description': this.description,
+                    'degree': this.degree,
+                    'course': this.course,
+                    'graduation_year': this.graduation_year,
+                    'rating': this.rating,
+                    '_token': this.token
+                })
+            }).then((response) => {
+                console.log(response)
+                return response.json()
+            }).then((result) => {
+                console.log(result)
+                this.statusCode = result.statusCode
+                this.message = result.message
+                this.graduation_year = 0
+                this.degree = ""
+                this.course = ""
+                this.description = ""
+                this.rating = 0
+            })
         }
     },
 }
