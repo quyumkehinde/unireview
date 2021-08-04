@@ -26,7 +26,8 @@ class SchoolController extends Controller
             'name' => $name,
             'state' => $state,
             'country' => 'Nigeria',
-            'status' => $status
+            'status' => $status,
+            'establishment_year' => 1980
         ]);
     }
 

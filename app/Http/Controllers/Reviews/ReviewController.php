@@ -13,12 +13,11 @@ class ReviewController extends Controller
     {
         return School::where('id', '=', $id)->exists();
     }
-    protected function getSchoolName(int $id): string
+    protected function getSchool(int $id): string
     {
         return School::where('id', '=', $id)
-            ->get('name')
-            ->first()
-            ->name;
+            ->get(['name', 'establishment_year'])
+            ->first();
     }
     public function index(int $id): View|RedirectResponse
     {
@@ -27,7 +26,7 @@ class ReviewController extends Controller
         }
 
         return view('review.create', [
-            'schoolName' => $this->getSchoolName($id)
+            'school' => $this->getSchool($id)
         ]);
     }
 }

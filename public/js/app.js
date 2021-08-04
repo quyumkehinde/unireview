@@ -2165,6 +2165,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2174,10 +2185,31 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      rating: 0
+      graduation_year: "",
+      degree: "",
+      course: "",
+      description: "",
+      rating: 3,
+      years: []
     };
   },
-  props: ['schoolname']
+  props: ['schoolinfo'],
+  created: function created() {
+    this.school = JSON.parse(this.$props.schoolinfo);
+    var currentYear = new Date().getFullYear();
+    var year = currentYear - 30;
+
+    while (year < currentYear + 6) {
+      this.years.push(year);
+      year++;
+    }
+  },
+  methods: {
+    submitForm: function submitForm(e) {
+      e.preventDefault();
+      console.log('working');
+    }
+  }
 });
 
 /***/ }),
@@ -39333,16 +39365,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("app", [
     _c(
-      "div",
+      "form",
       {
         staticClass:
-          "w-9/10 max-w-3xl bg-white mx-auto mt-3 shadow sm:p-6 p-3 font-light"
+          "w-9/10 max-w-3xl bg-white mx-auto mt-3 shadow sm:p-6 p-3 font-light",
+        on: { submit: _vm.submitForm }
       },
       [
         _c("h2", { staticClass: "sm:text-2xl text-xl font-medium" }, [
           _vm._v("Rate "),
           _c("span", { staticClass: "text-green-500" }, [
-            _vm._v('"' + _vm._s(_vm.schoolname) + '"')
+            _vm._v('"' + _vm._s(_vm.school.name) + '"')
           ])
         ]),
         _vm._v(" "),
@@ -39364,13 +39397,101 @@ var render = function() {
               _c(
                 "select",
                 {
-                  staticClass: "pl-2 pr-40 py-2",
-                  attrs: { name: "graduation_year", id: "graduation_year" }
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.graduation_year,
+                      expression: "graduation_year"
+                    }
+                  ],
+                  staticClass: "pl-2 pr-40 py-2 text-gray-600",
+                  attrs: { id: "graduation_year", required: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.graduation_year = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
                 },
                 [
-                  _c("option", { attrs: { value: "2021" } }, [_vm._v("2021")]),
+                  _c("option", { attrs: { value: "", disabled: "" } }, [
+                    _vm._v("Select")
+                  ]),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "2021" } }, [_vm._v("2022")])
+                  _vm._l(_vm.years, function(year) {
+                    return _c(
+                      "option",
+                      { key: year, domProps: { value: year } },
+                      [_vm._v(_vm._s(year))]
+                    )
+                  })
+                ],
+                2
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mt-5" }, [
+          _c("label", { staticClass: "text-gray-500 text-sm block" }, [
+            _vm._v("What degree did you study? *")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "inline-block border border-gray-300 mt-2" },
+            [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.degree,
+                      expression: "degree"
+                    }
+                  ],
+                  staticClass: "pl-2 pr-40 py-2 text-gray-600",
+                  attrs: { id: "degree", required: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.degree = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "", disabled: "" } }, [
+                    _vm._v("Select")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "undergraduate" } }, [
+                    _vm._v("Undergraduate")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "postgraduate" } }, [
+                    _vm._v("Postgraduate")
+                  ])
                 ]
               )
             ]
@@ -39384,12 +39505,29 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "border border-gray-300 mt-2" }, [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.course,
+                  expression: "course"
+                }
+              ],
               staticClass: "px-2 py-2 w-full",
               attrs: {
                 type: "text",
-                name: "course",
                 id: "course",
-                placeholder: "e.g Computer Science"
+                placeholder: "e.g Computer Science",
+                required: ""
+              },
+              domProps: { value: _vm.course },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.course = $event.target.value
+                }
               }
             })
           ])
@@ -39402,12 +39540,29 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "border border-gray-300 mt-2" }, [
             _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description,
+                  expression: "description"
+                }
+              ],
               staticClass: "px-2 pt-2 w-full h-52 resize-none",
               attrs: {
-                name: "description",
                 id: "description",
                 placeholder:
-                  "What did you enjoy about the school and did not? In what do you think the school can improve?"
+                  "What did you enjoy about the school and did not? In what way do you think the school can improve?",
+                required: ""
+              },
+              domProps: { value: _vm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.description = $event.target.value
+                }
               }
             })
           ])
@@ -39440,7 +39595,10 @@ var render = function() {
         _c("div", { staticClass: "mt-10" }, [
           _c(
             "button",
-            { staticClass: "p-3 bg-green-500 text-white hover:bg-green-300" },
+            {
+              staticClass: "p-3 bg-green-500 text-white hover:bg-green-300",
+              attrs: { type: "submit" }
+            },
             [_vm._v("Submit Review")]
           )
         ])
