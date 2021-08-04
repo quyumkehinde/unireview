@@ -20,7 +20,7 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('create-review', require('./components/review/Create.vue').default);
-Vue.component('select-school', require('./components/review/SelectSchool.vue').default);
+Vue.component('school', require('./components/review/School.vue').default);
 Vue.component('home', require('./components/static/Home.vue').default);
 
 /**

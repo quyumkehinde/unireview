@@ -3,7 +3,7 @@
         <a href="/" class="text-3xl font-bold">Uni<span class="text-green-500">Review</span></a>
         <nav class="flex items-center">
             <a href="/blog" class="ml-3 hover:underline">Blog</a>
-            <a href="/review/select-school" class="inline-block p-3 bg-green-500 hover:bg-green-300 text-white ml-7">Submit Review</a>
+            <a href="/review/school" class="inline-block p-3 bg-green-500 hover:bg-green-300 text-white ml-7">Submit Review</a>
         </nav>
     </header>
 </template>

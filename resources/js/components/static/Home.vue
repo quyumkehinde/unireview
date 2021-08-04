@@ -11,7 +11,7 @@
                         </button>
                         
                     </div>
-                    <a href="/review/select-school" class="text-white inline-block mt-5 hover:text-green-500 border-b border-solid border-white hover:border-green-500">
+                    <a href="/review/school" class="text-white inline-block mt-5 hover:text-green-500 border-b border-solid border-white hover:border-green-500">
                         <em>Write a Review</em>
                     </a>
                 </div>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="w-full text-center pb-10">
-                    <a href="/review/select-school" class="bg-green-500 py-2 px-10 inline-block text-center hover:bg-green-300">Write a Review</a>
+                    <a href="/review/school" class="bg-green-500 py-2 px-10 inline-block text-center hover:bg-green-300">Write a Review</a>
                 </div>
             </div>
         </section>

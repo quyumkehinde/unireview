@@ -1,7 +1,7 @@
 <template>
     <app>
         <div class="w-9/10 max-w-3xl bg-white mx-auto mt-3 shadow sm:p-6 p-3 font-light">
-            <h2 class="sm:text-2xl text-xl font-medium">Rate <span class="text-green-500">"Covenant University"</span></h2>
+            <h2 class="sm:text-2xl text-xl font-medium">Rate <span class="text-green-500">"{{schoolname}}"</span></h2>
             <p class="mt-3">Your review will be kept anonymous, and will help other aspirants make better decision.</p>
             <div class="mt-5">
                 <label class="text-gray-500 text-sm block">Year of graduation *</label>
@@ -54,5 +54,8 @@ export default {
             rating: 0
         }
     },
+    props: [
+        'schoolname'
+    ],
 }
 </script>

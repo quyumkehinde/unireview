@@ -1,5 +1,6 @@
 @extends('app')
 
 @section('content')
-    <create-review></create-review>
+
+    <create-review schoolname="{{$schoolName}}"></create-review>
 @endsection

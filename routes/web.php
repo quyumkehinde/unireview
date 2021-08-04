@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('static.home');
 });
-Route::prefix('review')->group(function(){
-    Route::get('select-school', [SchoolController::class, 'index']);
-    Route::get('create', [ReviewController::class, 'index']);
+Route::prefix('review/school')->group(function(){
+    Route::get('/', [SchoolController::class, 'index'])->name('review.school');
+    Route::post('/', [SchoolController::class, 'create'])->middleware('auth.school');
+    Route::get('{id}/create', [ReviewController::class, 'index'])->where('id', '[0-9]+');
 });
