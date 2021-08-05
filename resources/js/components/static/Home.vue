@@ -3,14 +3,19 @@
         <section class="hero w-full h-screen">
             <div class="modal w-full h-full bg-green-100 py-10 flex flex-col items-center justify-center">
                 <div class="w-full text-center px-10">
-                    <h2 class="text-white sm:text-3xl md:text-4xl text-2xl font-bold">Choose the right university for yourself.</h2>
-                    <div class="w-full max-w-2xl mx-auto mt-10 flex">
-                        <input type="text" name="school" id="school" class="inline-block flex-1 py-2 px-3" placeholder="Enter a school...">
-                        <button class="text-white flex-0 bg-green-500 hover:bg-green-300 px-3 text-2xl">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </button>
-                        
-                    </div>
+                    <form @submit="submitForm">
+                        <h2 class="text-white sm:text-3xl md:text-4xl text-2xl font-bold">Choose the right university for yourself.</h2>
+                        <div class="w-full max-w-2xl mx-auto mt-10 flex">
+                            <select v-model="school" class="inline-block flex-1 py-2 px-3 text-gray-700">
+                                <option value="" disabled>Select a school</option>
+                                <option v-for="school in JSON.parse(schools)" :value="school.id" :key="school.id">{{school.name}}</option>
+                            </select>
+                            <button class="text-white flex-0 bg-green-500 hover:bg-green-300 px-3 text-2xl" type="submit">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                            
+                        </div>
+                    </form>
                     <a href="/review/school" class="text-white inline-block mt-5 hover:text-green-500 border-b border-solid border-white hover:border-green-500">
                         <em>Write a Review</em>
                     </a>
@@ -74,7 +79,19 @@ import App from '../layouts/App'
 export default {
     components: {
         App
-    }
+    }, 
+    props: ['schools'],
+    data(){
+        return {
+            'school': "",
+        }
+    },
+    methods: {
+        submitForm(e){
+            e.preventDefault()
+            window.location.href = '/review/school/'+this.school
+        }
+    },
 }
 </script>
 

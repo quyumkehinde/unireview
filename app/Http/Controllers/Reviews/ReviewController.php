@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Review;
 use App\Models\School;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -40,6 +41,7 @@ class ReviewController extends Controller
     protected function validateReview(Request $request): array
     {
         return $request->validate([
+            'school_id' => 'required|numeric',
             'description' => 'required|string',
             'degree' => 'required|string',
             'course' => 'required|string',
@@ -48,7 +50,7 @@ class ReviewController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(Request $request): JsonResponse
     {
         $validatedData = $this->validateReview($request);
         $review = array_merge($validatedData, ['moderation_status' => 0]);

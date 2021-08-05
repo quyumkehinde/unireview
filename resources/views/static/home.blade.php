@@ -1,5 +1,5 @@
 @extends('app')
 
 @section('content')
-    <home></home>
+    <home schools="{{ $schools }}"></home>
 @endsection

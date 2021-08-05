@@ -28,10 +28,10 @@ class SchoolController extends Controller
             'state' => 'required|string',
         ]);
 
-        if($this->schoolExist($request->name)){
+        if($this->schoolExist($validatedData['name'])){
             return $this->getResponse(0, 'School already exist!');
         }
-        $school = array_merge(['country' => 'Nigeria', 'status' => 0, 'establishment_year' => 1980], $validatedData);
+        $school = array_merge(['country' => 'Nigeria', 'status' => 0], $validatedData);
 
         School::create($school);
         return $this->getResponse(1, 'School has been submitted for approval!');

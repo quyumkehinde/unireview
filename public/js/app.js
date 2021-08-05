@@ -1940,13 +1940,14 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         return response.json();
       }).then(function (result) {
+        _this.message = result.message;
+
         if (result.statusCode == 1) {
           _this.isSuccess = true;
         } else {
           _this.isError = true;
         }
 
-        _this.message = response.message;
         _this.name = "";
         _this.state = 1;
         _this.isSubmitDisabled = false;
@@ -2122,8 +2123,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_rate_it__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-rate-it */ "./node_modules/vue-rate-it/dist/vue-rate-it.min.js");
 /* harmony import */ var vue_rate_it__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_rate_it__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _layouts_App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../layouts/App */ "./resources/js/components/layouts/App.vue");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 //
 //
 //
@@ -2196,7 +2195,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       description: "",
       rating: 3,
       years: [],
-      statusCode: 0
+      statusCode: 0,
+      isSubmitDisabled: false
     };
   },
   props: ['schoolinfo'],
@@ -2216,9 +2216,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     submitForm: function submitForm(e) {
       var _this = this;
 
-      console.log(this.rating, _typeof(this.rating));
+      this.isSubmitDisabled = true;
       e.preventDefault();
-      console.log('working');
       fetch("/review/school/".concat(this.school.id, "/create"), {
         method: 'POST',
         headers: {
@@ -2226,6 +2225,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           'X-CSRF-TOKEN': this.token
         },
         body: JSON.stringify({
+          'school_id': this.school.id,
           'description': this.description,
           'degree': this.degree,
           'course': this.course,
@@ -2240,11 +2240,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         console.log(result);
         _this.statusCode = result.statusCode;
         _this.message = result.message;
-        _this.graduation_year = 0;
-        _this.degree = "";
-        _this.course = "";
-        _this.description = "";
-        _this.rating = 0;
+        _this.graduation_year = _this.rating = 0;
+        _this.degree = _this.course = _this.description = "";
+        _this.isSubmitDisabled = false;
       });
     }
   }
@@ -2383,10 +2381,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     App: _layouts_App__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  props: ['schools'],
+  data: function data() {
+    return {
+      'school': ""
+    };
+  },
+  methods: {
+    submitForm: function submitForm(e) {
+      e.preventDefault();
+      window.location.href = '/review/school/' + this.school;
+    }
   }
 });
 
@@ -38964,87 +38979,87 @@ var render = function() {
               _vm._v("--Select State--")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Abia" } }, [_vm._v("Abia")]),
+            _c("option", { attrs: { value: "abia" } }, [_vm._v("Abia")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Abuja" } }, [
+            _c("option", { attrs: { value: "abuja" } }, [
               _vm._v("Abuja (FCT)")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Adamawa" } }, [_vm._v("Adamawa")]),
+            _c("option", { attrs: { value: "adamawa" } }, [_vm._v("Adamawa")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Akwa Ibom" } }, [
+            _c("option", { attrs: { value: "akwa-ibom" } }, [
               _vm._v("Akwa Ibom")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Anambra" } }, [_vm._v("Anambra")]),
+            _c("option", { attrs: { value: "anambra" } }, [_vm._v("Anambra")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Bauchi" } }, [_vm._v("Bauchi")]),
+            _c("option", { attrs: { value: "bauchi" } }, [_vm._v("Bauchi")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Bayelsa" } }, [_vm._v("Bayelsa")]),
+            _c("option", { attrs: { value: "bayelsa" } }, [_vm._v("Bayelsa")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Benue" } }, [_vm._v("Benue")]),
+            _c("option", { attrs: { value: "benue" } }, [_vm._v("Benue")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Borno" } }, [_vm._v("Borno")]),
+            _c("option", { attrs: { value: "borno" } }, [_vm._v("Borno")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Cross River" } }, [
+            _c("option", { attrs: { value: "cross-river" } }, [
               _vm._v("Cross River")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Delta" } }, [_vm._v("Delta")]),
+            _c("option", { attrs: { value: "delta" } }, [_vm._v("Delta")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Ebonyi" } }, [_vm._v("Ebonyi")]),
+            _c("option", { attrs: { value: "ebonyi" } }, [_vm._v("Ebonyi")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Edo" } }, [_vm._v("Edo")]),
+            _c("option", { attrs: { value: "edo" } }, [_vm._v("Edo")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Ekiti" } }, [_vm._v("Ekiti")]),
+            _c("option", { attrs: { value: "ekiti" } }, [_vm._v("Ekiti")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Enugu" } }, [_vm._v("Enugu")]),
+            _c("option", { attrs: { value: "enugu" } }, [_vm._v("Enugu")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Gombe" } }, [_vm._v("Gombe")]),
+            _c("option", { attrs: { value: "gombe" } }, [_vm._v("Gombe")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Imo" } }, [_vm._v("Imo")]),
+            _c("option", { attrs: { value: "imo" } }, [_vm._v("Imo")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Jigawa" } }, [_vm._v("Jigawa")]),
+            _c("option", { attrs: { value: "jigawa" } }, [_vm._v("Jigawa")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Kaduna" } }, [_vm._v("Kaduna")]),
+            _c("option", { attrs: { value: "kaduna" } }, [_vm._v("Kaduna")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Kano" } }, [_vm._v("Kano")]),
+            _c("option", { attrs: { value: "kano" } }, [_vm._v("Kano")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Katsina" } }, [_vm._v("Katsina")]),
+            _c("option", { attrs: { value: "katsina" } }, [_vm._v("Katsina")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Kebbi" } }, [_vm._v("Kebbi")]),
+            _c("option", { attrs: { value: "kebbi" } }, [_vm._v("Kebbi")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Kogi" } }, [_vm._v("Kogi")]),
+            _c("option", { attrs: { value: "kogi" } }, [_vm._v("Kogi")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Kwara" } }, [_vm._v("Kwara")]),
+            _c("option", { attrs: { value: "kwara" } }, [_vm._v("Kwara")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Lagos" } }, [_vm._v("Lagos")]),
+            _c("option", { attrs: { value: "lagos" } }, [_vm._v("Lagos")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Nasarawa" } }, [
+            _c("option", { attrs: { value: "nasarawa" } }, [
               _vm._v("Nasarawa")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Niger" } }, [_vm._v("Niger")]),
+            _c("option", { attrs: { value: "niger" } }, [_vm._v("Niger")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Ogun" } }, [_vm._v("Ogun")]),
+            _c("option", { attrs: { value: "ogun" } }, [_vm._v("Ogun")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Ondo" } }, [_vm._v("Ondo")]),
+            _c("option", { attrs: { value: "ondo" } }, [_vm._v("Ondo")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Osun" } }, [_vm._v("Osun")]),
+            _c("option", { attrs: { value: "osun" } }, [_vm._v("Osun")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Oyo" } }, [_vm._v("Oyo")]),
+            _c("option", { attrs: { value: "oyo" } }, [_vm._v("Oyo")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Plateau" } }, [_vm._v("Plateau")]),
+            _c("option", { attrs: { value: "plateau" } }, [_vm._v("Plateau")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Rivers" } }, [_vm._v("Rivers")]),
+            _c("option", { attrs: { value: "rivers" } }, [_vm._v("Rivers")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Sokoto" } }, [_vm._v("Sokoto")]),
+            _c("option", { attrs: { value: "sokoto" } }, [_vm._v("Sokoto")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Taraba" } }, [_vm._v("Taraba")]),
+            _c("option", { attrs: { value: "taraba" } }, [_vm._v("Taraba")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Yobe" } }, [_vm._v("Yobe")]),
+            _c("option", { attrs: { value: "yobe" } }, [_vm._v("Yobe")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Zamfara" } }, [_vm._v("Zamfara")])
+            _c("option", { attrs: { value: "zamfara" } }, [_vm._v("Zamfara")])
           ]
         )
       ])
@@ -39444,7 +39459,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "pl-2 pr-40 py-2 text-gray-600",
-                  attrs: { id: "graduation_year", r: "" },
+                  attrs: { id: "graduation_year", required: "" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -39501,7 +39516,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "pl-2 pr-40 py-2 text-gray-600",
-                  attrs: { id: "degree", r: "" },
+                  attrs: { id: "degree", required: "" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -39556,7 +39571,7 @@ var render = function() {
                 type: "text",
                 id: "course",
                 placeholder: "e.g Computer Science",
-                r: ""
+                required: ""
               },
               domProps: { value: _vm.course },
               on: {
@@ -39591,7 +39606,7 @@ var render = function() {
                 id: "description",
                 placeholder:
                   "What did you enjoy about the school and did not? In what way do you think the school can improve?",
-                r: ""
+                required: ""
               },
               domProps: { value: _vm.description },
               on: {
@@ -39616,7 +39631,7 @@ var render = function() {
             { staticClass: "mt-2" },
             [
               _c("star-rating", {
-                attrs: { "item-size": 25, increment: 0.5 },
+                attrs: { "item-size": 25, increment: 1 },
                 model: {
                   value: _vm.rating,
                   callback: function($$v) {
@@ -39643,7 +39658,7 @@ var render = function() {
             "button",
             {
               staticClass: "p-3 bg-green-500 text-white hover:bg-green-300",
-              attrs: { type: "submit" }
+              attrs: { type: "submit", disabled: _vm.isSubmitDisabled }
             },
             [_vm._v("Submit Review")]
           )
@@ -39749,37 +39764,79 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "w-full text-center px-10" }, [
-            _c(
-              "h2",
-              {
-                staticClass:
-                  "text-white sm:text-3xl md:text-4xl text-2xl font-bold"
-              },
-              [_vm._v("Choose the right university for yourself.")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "w-full max-w-2xl mx-auto mt-10 flex" }, [
-              _c("input", {
-                staticClass: "inline-block flex-1 py-2 px-3",
-                attrs: {
-                  type: "text",
-                  name: "school",
-                  id: "school",
-                  placeholder: "Enter a school..."
-                }
-              }),
-              _vm._v(" "),
+            _c("form", { on: { submit: _vm.submitForm } }, [
               _c(
-                "button",
+                "h2",
                 {
                   staticClass:
-                    "text-white flex-0 bg-green-500 hover:bg-green-300 px-3 text-2xl"
+                    "text-white sm:text-3xl md:text-4xl text-2xl font-bold"
                 },
+                [_vm._v("Choose the right university for yourself.")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "w-full max-w-2xl mx-auto mt-10 flex" },
                 [
-                  _c("i", {
-                    staticClass: "fa fa-search",
-                    attrs: { "aria-hidden": "true" }
-                  })
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.school,
+                          expression: "school"
+                        }
+                      ],
+                      staticClass:
+                        "inline-block flex-1 py-2 px-3 text-gray-700",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.school = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "", disabled: "" } }, [
+                        _vm._v("Select a school")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(JSON.parse(_vm.schools), function(school) {
+                        return _c(
+                          "option",
+                          { key: school.id, domProps: { value: school.id } },
+                          [_vm._v(_vm._s(school.name))]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "text-white flex-0 bg-green-500 hover:bg-green-300 px-3 text-2xl",
+                      attrs: { type: "submit" }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-search",
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
+                  )
                 ]
               )
             ]),
