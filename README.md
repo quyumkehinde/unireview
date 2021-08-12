@@ -2,22 +2,19 @@
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About UniReview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+UniReview is a website where university aspirants can get to read reviews on their school of interest.
+These reviews are written by Students and Alumnis, thereby making them useful to universities, to also know where and how to improve!
+I had a tough time finding reviews for the University I wanted to attend, and that made me come up with the solution.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Here are some of the main features of UniReview highlighted below.
+
+- Helps university aspirants make better decisions in choosing the right university form themselves.
+- Provides a voice for university students and Alumnis, to share their experience, studying at a school.
+- Give universities an insight to where they need to improve, and how to provide a better experience for their students.
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
