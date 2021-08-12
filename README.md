@@ -20,12 +20,14 @@ UniReview doesn't accept any user's data, thus making it completely safe for eve
 
 ## Contributing
 
-Thank you for considering contributing to the UniReview! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Thank you for considering contributing to the UniReview! The contribution guide goes as follows <br>
+- Fork the repo and create your branch from master.
+- If you've added code that should be tested, add tests.
+- Ensure the test suite passes.
+- Make sure your code lints.
+- Issue that pull request!
 
 ## Security Vulnerabilities
 
 If you discover a security vulnerability within UniReview, please send me an e-mail via [quyum@unireview.net](mailto:quyum@unireview.net). All security vulnerabilities will be promptly addressed.
-
-
-If you find UniReview useful in any way, consider buying me a coffee on Patreon
 
