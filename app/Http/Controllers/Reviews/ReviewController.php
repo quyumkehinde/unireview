@@ -12,10 +12,6 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    protected function schoolExist(int $id): bool
-    {
-        return School::where('id', '=', $id)->exists();
-    }
     protected function getSchool(int $id): string
     {
         return School::where('id', '=', $id)
@@ -23,20 +19,12 @@ class ReviewController extends Controller
             ->first();
     }
 
-    public function index(int $id): View|RedirectResponse
+    public function create(Request $request): View|RedirectResponse
     {
-        if (!$this->schoolExist($id)) {
-            return redirect(route('review.school'));
-        }
-
         return view('review.create', [
-            'school' => $this->getSchool($id),
+            'school' => $this->getSchool($request->school_id),
         ]);
     }
-
-
-
-
 
     protected function validateReview(Request $request): array
     {
@@ -50,7 +38,7 @@ class ReviewController extends Controller
         ]);
     }
 
-    public function create(Request $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $validatedData = $this->validateReview($request);
         $review = array_merge($validatedData, ['moderation_status' => 0]);
@@ -61,5 +49,8 @@ class ReviewController extends Controller
             'statusCode' => 1,
             'message' => 'Your review has been submitted succesfully!'
         ]);
+    }
+    public function show(Request $request){
+        return view('review.index');
     }
 }

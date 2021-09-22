@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\SchoolController;
-use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

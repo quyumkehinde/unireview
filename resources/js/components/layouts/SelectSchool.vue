@@ -27,7 +27,7 @@ export default {
     methods: {
         submitForm(e){
             e.preventDefault()
-            window.location.href = '/review/school/' + this.school + '/create'
+            window.location.href = '/review/create?school_id=' + this.school;
         }
     },
     props: ['schools'],

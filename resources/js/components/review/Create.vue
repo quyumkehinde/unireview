@@ -91,7 +91,7 @@ export default {
         submitForm(e){
             this.isSubmitDisabled = true
             e.preventDefault()
-            fetch(`/review/school/${this.school.id}/create`, {
+            fetch(`/review/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

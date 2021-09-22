@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Reviews\ReviewController;
-use App\Http\Controllers\Reviews\SchoolController;
+use App\Http\Controllers\Schools\SchoolController;
 use App\Http\Controllers\Static\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', [HomeController::class, 'index']);
-Route::prefix('review/school')->group(function(){
+Route::prefix('school')->group(function(){
     Route::get('/', [SchoolController::class, 'index'])->name('review.school');
-    Route::post('/', [SchoolController::class, 'create']);
-    Route::get('{id}/create', [ReviewController::class, 'index'])->where('id', '[0-9]+');
-    Route::post('{id}/create', [ReviewController::class, 'create'])->where('id', '[0-9]+');
+    Route::post('/', [SchoolController::class, 'create']); 
+});
+
+Route::prefix('review')->group(function(){
+    Route::get('create', [ReviewController::class, 'create'])->middleware('school.exist');
+    Route::post('create', [ReviewController::class, 'store']);
+    Route::get('{id}', [ReviewController::class, 'show']);
 });

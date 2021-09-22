@@ -16,7 +16,7 @@
                             
                         </div>
                     </form>
-                    <a href="/review/school" class="text-white inline-block mt-5 hover:text-green-500 border-b border-solid border-white hover:border-green-500">
+                    <a href="/school" class="text-white inline-block mt-5 hover:text-green-500 border-b border-solid border-white hover:border-green-500">
                         <em>Write a Review</em>
                     </a>
                 </div>

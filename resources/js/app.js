@@ -22,6 +22,7 @@ window.Vue = require('vue').default;
 Vue.component('create-review', require('./components/review/Create.vue').default);
 Vue.component('school', require('./components/review/School.vue').default);
 Vue.component('home', require('./components/static/Home.vue').default);
+Vue.component('reviews', require('./components/review/Index.vue').default)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

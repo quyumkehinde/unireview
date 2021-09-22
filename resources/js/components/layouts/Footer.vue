@@ -11,7 +11,7 @@
                     <ul class="inline-block md:mx-auto">
                         <li class="p-1 hover:text-green-500 hover:underline"><a href="/about">About us</a></li>
                         <li class="p-1 hover:text-green-500 hover:underline">
-                            <a href="/review/school">Write a Review</a>
+                            <a href="/school">Write a Review</a>
                         </li>
                         <li class="p-1 hover:text-green-500 hover:underline"><a href="/contact">Privacy Policy</a></li>
                     </ul>   
